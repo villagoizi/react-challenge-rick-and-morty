@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from "react";
-import Container from "../ui-two/Container/Container";
+import Container from "../ui/Container";
 import { ContentHeader, TitleSelected } from "./Header.styles";
 import {
   FormGroup,
@@ -7,10 +7,10 @@ import {
   ContentRadioGroup,
   Input,
   InputRadio,
-} from "../ui-two/Form";
-import { Button } from "../ui-two/Button";
+} from "../ui/Form";
+import { Button } from "../ui/Button";
 import { firstLetterToUppercase } from "../../utils/firstLetterToUppercase";
-import { StateChange } from "../../hooks/useQuerySearch";
+import { StateChange } from "../../hooks/useQuerySearch/types";
 
 interface HeaderProps {
   change: StateChange;
@@ -25,11 +25,9 @@ const Header: FC<HeaderProps> = ({
   handleSearchChange,
   resetAll,
 }) => {
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      handleSearchChange(e.target.name, e.target.value),
-    []
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleSearchChange(e.target.name, e.target.value);
+  };
 
   return (
     <ContentHeader>
@@ -43,7 +41,7 @@ const Header: FC<HeaderProps> = ({
             name="search"
             placeholder={`Search by ${change.filter}`}
           />
-          <Button onClick={() => resetAll()}>Clear all</Button>
+          <Button onClick={resetAll.bind(null)}>Clear all</Button>
         </FormGroup>
         <RadioGroup>
           <ContentRadioGroup>

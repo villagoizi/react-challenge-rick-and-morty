@@ -1,10 +1,7 @@
 import { FC } from "react";
 import { ContentAside } from "./Aside.styles";
-import { ContentRadioGroup, InputRadio } from "../ui-two/Form";
-import {
-  Entities,
-  EnumEntities,
-} from "../../hooks/useQuerySearch/useQuerySearch.types";
+import { ContentRadioGroup, InputRadio } from "../ui/Form";
+import { Entities, EnumEntities } from "../../hooks/useQuerySearch/types";
 
 interface AsideProps {
   handleChangeEntity: (newEntity: Entities) => void;

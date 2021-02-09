@@ -11,14 +11,13 @@ import {
   StateChange,
   Entities,
   EnumEntities,
-} from "./useQuerySearch.types";
-import { makeGenerateDinamicQueries } from "../../adapters/adapter-generate-dinamic-queries";
+} from "./types";
+import { makeGenerateDinamicQueries } from "../../utils/adapters/adapter-generate-dinamic-queries";
 
 const initialStateChange: StateChange = {
   search: "",
   filter: "name",
 };
-
 export default function useQuerySearch() {
   const [change, setChange] = useState<StateChange>(initialStateChange);
   const [entity, setEntity] = useState<Entities>(EnumEntities.CHARACTER);
@@ -43,10 +42,12 @@ export default function useQuerySearch() {
     errorPolicy: "all",
   });
 
-  const handleSearchChange = useCallback((key: string, value: string) => {
+  const handleSearchChange = (key: string, value: string) => {
     setChange({ ...change, [key]: value });
-    change.search.length >= 3 && searchItems();
-  }, []);
+    if (change.search.length >= 3) {
+      searchItems();
+    }
+  };
 
   const searchItems = (newEntity?: Entities) => {
     const newInstanceDinamicQuery = makeGenerateDinamicQueries(
